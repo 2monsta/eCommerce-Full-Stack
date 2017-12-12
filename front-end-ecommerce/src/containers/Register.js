@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Form, FormGroup, ControlLabel, FormControl, Button, Col, MenuItem} from 'react-bootstrap';
-// import {Button, Icon, Input, Row, MenuItem,Col, SearchForm }from 'react-materialize';
+// import {Form, FormGroup, ControlLabel, FormControl, Button, Col, MenuItem} from 'react-bootstrap';
+import {Button, Icon, Input, Row, MenuItem,Col, SearchForm }from 'react-materialize';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import AuthAction from '../actions/AuthAction';
@@ -12,85 +12,46 @@ class Register extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-
-
   handleSubmit(e){
     e.preventDefault();
     this.props.authAction();
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var accountType = document.getElementById("accountType").value;
+    var city = document.getElementById("city").value;
+    var state = document.getElementById("state").value;
+    var salesRep = document.getElementById("salesRep").value;
+
+    var formInfo = {
+      name,
+      email,
+      password,
+      accountType,
+      city,
+      state,
+      salesRep
+    };
+    this.props.authAction(formInfo);
   }
 
   render(){
     // this is a value or whatever data type when we set it up to be
-    console.log(this.props.auth);
+    // console.log(this.props.auth);
     // this is a function
     // console.log(this.props.authAction);
     return(
-      <Form horizontal onSubmit={this.handleSubmit}>
-        <FormGroup controlId="formHorizontalName" validationState={this.state.nameError}>
-          <Col componentClass={ControlLabel} sm={2}>
-            Name
-          </Col>
-          <Col sm={10}>
-            <FormControl type="text" name="fullName" placeholder="Full Name" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName" validationState={this.state.emailError}>
-          <Col componentClass={ControlLabel} sm={2}>
-            Email
-          </Col>
-          <Col sm={10}>
-            <FormControl type="email" name="email" placeholder="Email" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName">
-          <Col componentClass={ControlLabel} sm={2}>
-            Account Type
-          </Col>
-          <Col sm={10}>
-            <FormControl type="text" name="type" value="customer" disabled />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName">
-          <Col componentClass={ControlLabel} sm={2}>
-            Password
-          </Col>
-          <Col sm={10}>
-            <FormControl type="password" name="password" placeholder="Password" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName">
-          <Col componentClass={ControlLabel} sm={2}>
-            City
-          </Col>
-          <Col sm={10}>
-            <FormControl type="text" name="city" placeholder="City" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName">
-          <Col componentClass={ControlLabel} sm={2}>
-            State
-          </Col>
-          <Col sm={10}>
-            <FormControl type="text" name="state" placeholder="State" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalName">
-          <Col componentClass={ControlLabel} sm={2}>
-            Sales Rep
-          </Col>
-          <Col sm={10}>
-            <FormControl type="text" name="employee" placeholder="Employee you worked with" />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={2} sm={10}>
-            <Button bsStyle="primary" bsSize="small" type="submit">
-              Register
-            </Button>
-          </Col>
-        </FormGroup>
-      </Form>
+      <form onSubmit={this.handleSubmit}>
+        <Input s={12} id={"name"} label="Full Name" />
+        <Input type="email" id={"email"} label="Email" s={12} />
+        <Input type="password" id={"password"} label="password" s={12} />
+        <Input s={12} id={"accountType"} label="Account Type" type={'text'}  />
+        <Input s={12} id={"city"} label="City" />
+        <Input s={12} id={"state"} label="State" />
+        <Input s={12} id={"salesRep"} label="Sales Rep" />
+        <Button waves={"light"}>Register </Button>
+      </form>
+
     )
   }
 }
