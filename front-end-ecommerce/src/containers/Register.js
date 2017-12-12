@@ -1,15 +1,32 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, ControlLabel, FormControl, Button, Col, MenuItem} from 'react-bootstrap';
 // import {Button, Icon, Input, Row, MenuItem,Col, SearchForm }from 'react-materialize';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import AuthAction from '../actions/AuthAction';
 
 class Register extends Component{
   constructor(){
     super();
     this.state={};
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
+
+
+  handleSubmit(e){
+    e.preventDefault();
+    this.props.authAction();
+  }
+
   render(){
+    // this is a value or whatever data type when we set it up to be
+    console.log(this.props.auth);
+    // this is a function
+    // console.log(this.props.authAction);
     return(
-      <Form horizontal>
+      <Form horizontal onSubmit={this.handleSubmit}>
         <FormGroup controlId="formHorizontalName" validationState={this.state.nameError}>
           <Col componentClass={ControlLabel} sm={2}>
             Name
@@ -78,4 +95,21 @@ class Register extends Component{
   }
 }
 
-export default Register;
+function mapStateToProps(state){
+  // this.props.key is now accessable to this component
+  return {
+    auth:state.auth
+  }
+}
+
+// sends out all the actions to the reducers
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    authAction: AuthAction
+  }, dispatch);
+}
+
+// export default Register;
+
+// need access to dispahcer and to state
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

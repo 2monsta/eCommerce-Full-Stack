@@ -24,6 +24,8 @@ class Navbar extends Component{
                   </ul>
                 </div>
                 <ul className="side-nav" id="mobile-demo">
+                  <li><Link to={"/login"}>Sign in</Link></li>
+                  <li><Link to={"/register"}>Create an Account</Link></li>
                   <li><Link to={"/"}>Home</Link></li>
                   <li><Link to={"/shop"}>Shop</Link></li>
                   <li><Link to={"/about"}>About Us</Link></li>

@@ -1,5 +1,11 @@
 // a reducer is a function that returns a piece of State
 
 export default function(state = [], action){
-  return state;
+  switch(action.type){
+    case "AUTH_ACTION":
+      // i'm going to update'
+      return action.payload;
+    default:
+      return state;
+  }
 }
