@@ -12,11 +12,12 @@ class SlickSlider extends Component{
       slidesToShow:1,
       slidesToScroll:1,
       autoplay:true,
-      swipe: true
+      swipe: true,
+      adaptiveHeight: true
     };
 
     return(
-      <div>
+      <div id={"slickSlider"}>
        <Slider {...settings}>
          <div>
            <img src="/slider-images/ferrari.jpg" alt=""/>

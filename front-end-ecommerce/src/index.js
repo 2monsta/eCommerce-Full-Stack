@@ -11,7 +11,7 @@ import reducers from './reducers/index'
 
 const theStoreWithMiddleWare = applyMiddleware(reactPromise)(createStore)(reducers);
 ReactDOM.render(
-  <Provider>
+  <Provider store={theStoreWithMiddleWare}>
     <App />
   </Provider>,
   document.getElementById('root'));
