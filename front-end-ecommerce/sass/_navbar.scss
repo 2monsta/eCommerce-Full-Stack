@@ -1,7 +1,9 @@
+
 .nav-wrapper{
   background-color: white;
   color: #000;
   a{
+    color:#039be5;
     i{
       color: #000;
     }
@@ -21,6 +23,9 @@ nav{
   overflow: hidden;
   .bottom-nav{
     background-color: #f6f6f6;
+    .linkToLogin{
+      color: #000;
+    }
   }
 }
 
