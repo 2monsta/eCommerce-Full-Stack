@@ -5,9 +5,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
+// use ajax so we need redux-promise
 import reactPromise from 'redux-promise';
 import reducers from './reducers/index'
-
 
 const theStoreWithMiddleWare = applyMiddleware(reactPromise)(createStore)(reducers);
 ReactDOM.render(
