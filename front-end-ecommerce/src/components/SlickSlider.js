@@ -22,10 +22,10 @@ class SlickSlider extends Component{
            <img src="/slider-images/ferrari.jpg" alt=""/>
          </div>
          <div>
-           <img src="/slider-images/ferrari.jpg" alt=""/>
+           <img src="/slider-images/lamb.jpg" alt=""/>
          </div>
          <div>
-           <img src="/slider-images/ferrari.jpg" alt=""/>
+           <img src="/slider-images/schooner.jpg" alt=""/>
          </div>
        </Slider>
       </div>

@@ -9,6 +9,7 @@ import {createStore, applyMiddleware} from 'redux';
 import reactPromise from 'redux-promise';
 import reducers from './reducers/index'
 
+//create the store
 const theStoreWithMiddleWare = applyMiddleware(reactPromise)(createStore)(reducers);
 ReactDOM.render(
   <Provider store={theStoreWithMiddleWare}>
