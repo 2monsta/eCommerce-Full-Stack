@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
 class Navbar extends Component{
   constructor(){
     super();
@@ -32,8 +31,9 @@ class Navbar extends Component{
                   <li><Link to={"/contact"}>Contact Us</Link></li>
                 </ul>
                 <div className={"col s3 offset-s2"}>
+                  {/*<i className={"material-icons"}>search</i>*/}
                   <form>
-                    <input id="search" className={"browser-default"} type="text" placeholder={"   Type Here To Search"} />
+                    <input id="search" className={"browser-default"} type="text" placeholder={"  Type Here To Search"} />
                   </form>
                 </div>
               </div>

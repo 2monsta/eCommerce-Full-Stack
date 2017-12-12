@@ -14,7 +14,7 @@ class Register extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.authAction();
+    // this.props.authAction();
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
@@ -40,6 +40,9 @@ class Register extends Component{
     // console.log(this.props.auth);
     // this is a function
     // console.log(this.props.authAction);
+
+    console.log(this.props.auth);
+
     return(
       <form onSubmit={this.handleSubmit}>
         <Input s={12} id={"name"} label="Full Name" />
