@@ -1,19 +1,24 @@
 .nav-wrapper{
   background-color: white;
   color: #000;
+  a{
+    i{
+      color: #000;
+    }
+  }
   form{
     input[type="text"]{
       border: 1px solid black;
       border-radius: 30px 30px 30px 30px;
       outline:none;
       height:30px;
-      width:300px;
       font-size:15px;
     }
   }
 }
 
 nav{
+  overflow: hidden;
   .bottom-nav{
     background-color: #f6f6f6;
   }

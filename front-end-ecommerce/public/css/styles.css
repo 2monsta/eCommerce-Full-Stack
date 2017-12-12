@@ -1,23 +1,23 @@
 .nav-wrapper {
   background-color: white;
   color: #000; }
+  .nav-wrapper a i {
+    color: #000; }
   .nav-wrapper form input[type="text"] {
     border: 1px solid black;
     border-radius: 30px 30px 30px 30px;
     outline: none;
     height: 30px;
-    width: 300px;
     font-size: 15px; }
 
-nav .bottom-nav {
-  background-color: #f6f6f6; }
+nav {
+  overflow: hidden; }
+  nav .bottom-nav {
+    background-color: #f6f6f6; }
 
 #slickSlider div img {
   width: 100%; }
 #slickSlider .slick-next {
   right: 25px; }
-
-body {
-  background-color: orange; }
 
 /*# sourceMappingURL=styles.css.map */
