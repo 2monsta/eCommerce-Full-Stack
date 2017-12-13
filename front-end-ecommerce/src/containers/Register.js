@@ -41,8 +41,7 @@ class Register extends Component{
     // this is a function
     // console.log(this.props.authAction);
 
-    console.log(this.props.auth);
-
+    // console.log(this.props.auth);
     return(
       <form onSubmit={this.handleSubmit}>
         <Input s={12} id={"name"} label="Full Name" />
