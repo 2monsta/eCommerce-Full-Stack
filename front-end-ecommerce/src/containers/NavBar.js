@@ -1,10 +1,31 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 class Navbar extends Component{
   constructor(){
     super();
   }
+
+  componentWillReceiveProps(newProps){
+  }
+
+
   render(){
+
+    if(this.props.auth.name !== undefined){
+      // this mean the user is logged in
+      var rightMenuBar = [
+        <div className={"offset-m3 col m5 col s12"}>
+          Welcome {this.props.auth.name} | (0) items in cart | ($0.00)
+        </div>
+      ]
+    }else{
+      var rightMenuBar = [
+        <div className={"offset-m4 col m5 col s12"}>
+          <Link to={"/login"}>Sign in</Link> or <Link to={"/register"}>Create an account </Link>| (0) items in cart | ($0.00)
+        </div>
+      ]
+    }
     return(
       <div id={"full-nav navbar-fixed"}>
         <nav>
@@ -44,12 +65,10 @@ class Navbar extends Component{
           <div className={"nav-wrapper bottom-nav left-align"}>
             <div className={"container"}>
               <div className={"row"}>
-                <div className={"col s3"}>
-                  <p>classic logo goes here</p>
+                <div className={"col s12 col m3"}>
+                  classic logo goes here
                 </div>
-                <div className={"offset-s4 col s5 hide-on-med-and-down right-align"}>
-                  <p className={"linkToLogin"}><Link to={"/login"}>Sign in</Link> or <Link to={"/register"}>Create an account</Link> | (0) items in cart | ($0.00)</p>
-                </div>
+                  {rightMenuBar}
               </div>
             </div>
           </div>
@@ -59,4 +78,11 @@ class Navbar extends Component{
   }
 }
 
-export default Navbar;
+function mapStateToProps(state){
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);
+// export default Navbar;

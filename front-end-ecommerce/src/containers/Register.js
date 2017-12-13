@@ -8,7 +8,9 @@ import AuthAction from '../actions/AuthAction';
 class Register extends Component{
   constructor(){
     super();
-    this.state={};
+    this.state={
+      error:""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -35,6 +37,21 @@ class Register extends Component{
     this.props.authAction(formInfo);
   }
 
+  componentWillReceiveProps(newProps){
+    // console.log(this.props);
+    // console.log(newProps);
+    console.log(newProps.auth.msg);
+    if(newProps.auth.msg === "registerSuccess"){
+      // the user was inserted,
+        // we have the token and name safely in the auth reducer
+      this.props.history.push("/");
+    }else if(newProps.auth.msg === "userExists"){
+      this.setState({
+        error: "This email address is already registered."
+      })
+    }
+  }
+
   render(){
     // this is a value or whatever data type when we set it up to be
     // console.log(this.props.auth);
@@ -43,17 +60,19 @@ class Register extends Component{
 
     // console.log(this.props.auth);
     return(
-      <form onSubmit={this.handleSubmit}>
-        <Input s={12} id={"name"} label="Full Name" />
-        <Input type="email" id={"email"} label="Email" s={12} />
-        <Input type="password" id={"password"} label="password" s={12} />
-        <Input s={12} id={"accountType"} label="Account Type" type={'text'}  />
-        <Input s={12} id={"city"} label="City" />
-        <Input s={12} id={"state"} label="State" />
-        <Input s={12} id={"salesRep"} label="Sales Rep" />
-        <Button waves={"light"}>Register </Button>
-      </form>
-
+     <div>
+       <h1>{this.state.error}</h1>
+       <form onSubmit={this.handleSubmit}>
+         <Input s={12} id={"name"} label="Full Name" />
+         <Input type="email" id={"email"} label="Email" s={12} />
+         <Input type="password" id={"password"} label="password" s={12} />
+         <Input s={12} id={"accountType"} label="Account Type" type={'text'}  />
+         <Input s={12} id={"city"} label="City" />
+         <Input s={12} id={"state"} label="State" />
+         <Input s={12} id={"salesRep"} label="Sales Rep" />
+         <Button waves={"light"}>Register </Button>
+       </form>
+     </div>
     )
   }
 }
