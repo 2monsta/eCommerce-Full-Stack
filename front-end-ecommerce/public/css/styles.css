@@ -5,6 +5,12 @@
     color: #039be5; }
     .nav-wrapper a i {
       color: #000; }
+  .nav-wrapper .shop {
+    color: #039be5;
+    padding-left: 0px; }
+  .nav-wrapper .dropdown-button {
+    color: #039be5;
+    padding-left: 0px; }
   .nav-wrapper form input[type="text"] {
     border: 1px solid black;
     border-radius: 30px 30px 30px 30px;

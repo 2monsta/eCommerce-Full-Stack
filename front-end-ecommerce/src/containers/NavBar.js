@@ -16,6 +16,10 @@ class Navbar extends Component{
   }
 
   render(){
+		console.log(this.props.productLines);
+		var shopMenu = this.props.productLines.map((pl, index)=>(
+			<li className="dropdown-links"><Link key={index} to={`shop/${pl.link}`}>{pl.productLine}</Link></li>
+		));
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
       var rightMenuBar = [
@@ -41,7 +45,13 @@ class Navbar extends Component{
                   {/*<ul className="hide-on-med-and-down">*/}
                     <div className={"row hide-on-med-and-down"}>
                       <span className={"col s2"}><Link to={"/"}>Home</Link></span>
-                      <span className={"col s2"}><Link to={"/shop"}>Shop</Link></span>
+                      <span className={"col s2"}>
+												<span className={'col s6 left-aligh shop'}>Shop</span>
+												<i className={"material-icons tiny col s6 dropdown-button"} data-activates='dropdown1'>arrow_drop_down</i>
+												<ul id='dropdown1' className='dropdown-content'>
+													{shopMenu}
+												</ul>
+											</span>
                       <span className={"col s2"}><Link to={"/about"}>About Us</Link></span>
                       <span className={"col s3"}><Link to={"/contact"}>Contact Us</Link></span>
                     </div>

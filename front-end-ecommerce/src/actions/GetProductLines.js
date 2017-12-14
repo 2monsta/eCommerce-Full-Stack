@@ -7,6 +7,6 @@ export default ()=>{
   });
   return{
     type: "GET_PRODUCTLINES",
-    payload: ajaxPromise.data
+    payload: ajaxPromise
   }
 }
