@@ -5,12 +5,14 @@
 
 
 import {combineReducers} from 'redux';
+import ProductLineReducer from './ProductLineReducer';
 // 1. import auth reducer
 import AuthReducer from './AuthReducer';
 // combineReducer takes key:value pair
   // stateName: reducerFunction
 const rootReducers = combineReducers({
-  auth: AuthReducer
+  auth: AuthReducer,
+  pl: ProductLineReducer
 });
 
 export default rootReducers;
