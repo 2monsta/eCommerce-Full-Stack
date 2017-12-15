@@ -28,11 +28,11 @@ class Navbar extends Component{
         </div>
       ]
 		}
-		console.log(this.props.productLines);
+		// console.log(this.props.productLines);
 		var shopMenu = this.props.productLines.map((pl, index)=>{
 			var safeLink = encodeURIComponent(pl.productLine);
 			return(
-				<li className="dropdown-links"><Link key={index} to={`/shop/${safeLink}`}>{pl.productLine}</Link></li>
+				<li key={index} className="dropdown-links"><Link to={`/shop/${safeLink}`}>{pl.productLine}</Link></li>
 			)
 		});
     return(

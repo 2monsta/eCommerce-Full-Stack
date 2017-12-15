@@ -31,6 +31,9 @@ nav .container {
 #slickSlider .slick-next {
   right: 25px; }
 
+.container .row .product-details {
+  min-height: 300px; }
+
 .App {
   overflow-x: hidden; }
 

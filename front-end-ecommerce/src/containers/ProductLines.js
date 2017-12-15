@@ -23,24 +23,31 @@ class ProductLines extends Component{
 	}
 	render(){
 		// console.log(this.props);
-		const products = this.state.productList.map((products, index)=>{
+		const products = this.state.productList.map((product, index)=>{
+		  console.log(product);
 			return (
-				<div></div>
+				<div className={"col s12 col m6 product-details"} key={index}>
+          <h4>{product.productName}</h4>
+          <p>MSRP: {product.MSRP} | Buy Price: {product.buyPrice}</p>
+          <p> Vendor: {product.productVendor}</p>
+          <p>{product.productDescription}</p>
+        </div>
 			)
-		})
+		});
 		var thisPL = this.props.pl.filter((obj)=>{
 			return obj.productLine === this.props.match.params.productline
 		})
-		console.log(thisPL);
+		// console.log(thisPL);
 		if(thisPL.length === 0){
 			var desc = "";
 		}else{
 			var desc = thisPL[0].textDescription;
 		}
 		return(
-			<div>
+			<div className={"row"}>
 				<h1>Welcome to the {this.props.match.params.productline}</h1>
 				<p>{desc}</p>
+        {products}
 			</div>
 		)
 	}
