@@ -25,6 +25,9 @@ nav .bottom-nav {
 nav .container {
   overflow: hidden; }
 
+#slickSlider .slick-prev {
+  z-index: 1000;
+  margin-left: 40px; }
 #slickSlider .slick-next {
   right: 25px; }
 
