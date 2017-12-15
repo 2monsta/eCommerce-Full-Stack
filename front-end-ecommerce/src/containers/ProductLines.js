@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import ProductRow from '../components/ProductRow';
+import UpdateCart from '../actions/UpdateCart';
+import {bindActionCreators} from 'redux';
 
 class ProductLines extends Component{
 	constructor(){
@@ -8,30 +11,36 @@ class ProductLines extends Component{
 		this.state ={
 			productList: []
 		}
+		this.getProducts = this.getProducts.bind(this);
 	}
+	getProducts(props){
+    const pl = props.match.params.productline;
+    // const decodedPL = decodeURIComponent(pl);
+    console.log(pl);
+    const url = `${window.apiHost}/productlines/${pl}/get`
+    axios.get(url)
+      .then((response)=>{
+        // console.log(response);
+        this.setState({
+          productList: response.data
+        })
+      });
+  }
+
 	componentDidMount(){
-		const pl = this.props.match.params.productline;
-		// const decodedPL = decodeURIComponent(pl);
-		const url = `${window.apiHost}/productlines/${pl}/get`
-		axios.get(url)
-		.then((response)=>{
-			// console.log(response);
-			this.setState({
-				productList: response.data
-			})
-		});
+    this.getProducts(this.props);
 	}
+
+	componentWillReceiveProps(newProps){
+	  this.getProducts(newProps);
+  }
+
 	render(){
 		// console.log(this.props);
 		const products = this.state.productList.map((product, index)=>{
 		  console.log(product);
 			return (
-				<div className={"col s12 col m6 product-details"} key={index}>
-          <h4>{product.productName}</h4>
-          <p>MSRP: {product.MSRP} | Buy Price: {product.buyPrice}</p>
-          <p> Vendor: {product.productVendor}</p>
-          <p>{product.productDescription}</p>
-        </div>
+				<ProductRow key={index} product={product} addToCart={this.props.addCart} token={this.props.auth.token}/>
 			)
 		});
 		var thisPL = this.props.pl.filter((obj)=>{
@@ -47,7 +56,24 @@ class ProductLines extends Component{
 			<div className={"row"}>
 				<h1>Welcome to the {this.props.match.params.productline}</h1>
 				<p>{desc}</p>
-        {products}
+        <div className={"products"}>
+          <table>
+            <thead>
+            <tr>
+              <th>Product NamE</th>
+              <th>Model Scale</th>
+              <th>Made By</th>
+              <th>Description</th>
+              <th>In Stock</th>
+              <th>Your Pirce!</th>
+              <th>MSRP</th>
+            </tr>
+            </thead>
+            <tbody>
+            {products}
+            </tbody>
+          </table>
+        </div>
 			</div>
 		)
 	}
@@ -55,8 +81,15 @@ class ProductLines extends Component{
 
 function mapStateToProps(state){
 	return{
-		pl:state.pl
+		pl:state.pl,
+    auth:state.auth
 	}
 }
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    addCart: UpdateCart
+  },dispatch);
+}
 // export default ProductLines
-export default connect(mapStateToProps)(ProductLines);
+export default connect(mapStateToProps,mapDispatchToProps)(ProductLines);

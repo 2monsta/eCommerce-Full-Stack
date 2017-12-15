@@ -32,7 +32,9 @@ class Navbar extends Component{
 		var shopMenu = this.props.productLines.map((pl, index)=>{
 			var safeLink = encodeURIComponent(pl.productLine);
 			return(
-				<li key={index} className="dropdown-links"><Link to={`/shop/${safeLink}`}>{pl.productLine}</Link></li>
+				<li key={index} className="dropdown-links">
+          <Link to={`/shop/${safeLink}`}>{pl.productLine}</Link>
+        </li>
 			)
 		});
     return(

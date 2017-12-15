@@ -4,20 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 class SlickSlider extends Component{
-	constructor(){
-		super();
-		this.state = {
-			slickStyles: {}
-		}
-	}
 
-	componentDidMount(){
-		this.setState({
-			slickStyles: {
-				float: "left"
-			}
-		})
-	}
 
   render(){
     const settings = {
