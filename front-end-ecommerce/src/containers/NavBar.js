@@ -8,13 +8,11 @@ class Navbar extends Component{
   constructor(){
     super();
   }
-
   // componentWillReceiveProps(newProps){
   // }
   componentDidMount(){
     this.props.getProductLines();
   }
-
   render(){
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
@@ -37,7 +35,6 @@ class Navbar extends Component{
 				<li className="dropdown-links"><Link key={index} to={`/shop/${safeLink}`}>{pl.productLine}</Link></li>
 			)
 		});
-
     return(
       <div id={"full-nav navbar-fixed"}>
         <nav>
