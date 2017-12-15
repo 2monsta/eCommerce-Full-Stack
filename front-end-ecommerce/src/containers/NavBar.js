@@ -16,10 +16,6 @@ class Navbar extends Component{
   }
 
   render(){
-		console.log(this.props.productLines);
-		var shopMenu = this.props.productLines.map((pl, index)=>(
-			<li className="dropdown-links"><Link key={index} to={`shop/${pl.link}`}>{pl.productLine}</Link></li>
-		));
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
       var rightMenuBar = [
@@ -33,7 +29,15 @@ class Navbar extends Component{
           <Link to={"/login"}>Sign in</Link> or <Link to={"/register"}>Create an account </Link>| (0) items in cart | ($0.00)
         </div>
       ]
-    }
+		}
+		console.log(this.props.productLines);
+		var shopMenu = this.props.productLines.map((pl, index)=>{
+			var safeLink = encodeURIComponent(pl.productLine);
+			return(
+				<li className="dropdown-links"><Link key={index} to={`/shop/${safeLink}`}>{pl.productLine}</Link></li>
+			)
+		});
+
     return(
       <div id={"full-nav navbar-fixed"}>
         <nav>
@@ -75,18 +79,18 @@ class Navbar extends Component{
             </div>
           </div>
         </nav>
-        <nav>
-          <div className={"nav-wrapper bottom-nav left-align"}>
-            <div className={"container"}>
-              <div className={"row"}>
-                <div className={"col s12 col m3"}>
-                  classic logo goes here
-                </div>
-                  {rightMenuBar}
-              </div>
-            </div>
-          </div>
-        </nav>
+				<nav>
+				<div className={"nav-wrapper bottom-nav"}>
+					<div className={"container"}>
+						<div className={"row"}>
+							<div className={"col s12 col m3"}>
+								classic logo goes here
+							</div>
+								{rightMenuBar}
+						</div>
+					</div>
+				</div>
+				</nav>
       </div>
     )
   }

@@ -18,16 +18,17 @@
     height: 30px;
     font-size: 15px; }
 
-nav {
+nav .bottom-nav {
+  background-color: #f6f6f6; }
+  nav .bottom-nav .linkToLogin {
+    color: #000; }
+nav .container {
   overflow: hidden; }
-  nav .bottom-nav {
-    background-color: #f6f6f6; }
-    nav .bottom-nav .linkToLogin {
-      color: #000; }
 
-#slickSlider div img {
-  width: 100%; }
 #slickSlider .slick-next {
   right: 25px; }
+
+.App {
+  overflow-x: hidden; }
 
 /*# sourceMappingURL=styles.css.map */
