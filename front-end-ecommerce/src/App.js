@@ -14,11 +14,15 @@ import ProductLines from './containers/ProductLines';
 class App extends Component {
   render() {
     return (
+
       <Router>
         <div className="App">
+          {/*the only component that will show on all pages*/}
           <NavBar />
+          {/*show the slickSlider only when it's exactly at "/"*/}
           <Route exact path='/' component={SlickSlider}/>
           <div className={"container"}>
+            {/*will show this page only when it's at "/"*/}
             <Route exact path={'/'} component={Home}/>
             <Route exact path={"/register"} component={Register}/>
             <Route exact path={"/login"} component={Login}/>

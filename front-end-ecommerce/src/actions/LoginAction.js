@@ -7,6 +7,8 @@ export default function(loginData){
     method: "POST",
     data: loginData
   });
+
+
   return {
     type: "AUTH_ACTION",
     payload:  axiosPromise

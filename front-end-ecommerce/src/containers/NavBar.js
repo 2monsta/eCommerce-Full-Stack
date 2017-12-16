@@ -14,25 +14,33 @@ class Navbar extends Component{
     this.props.getProductLines();
   }
   render(){
+    let rightMenuBar;
+    let cartText;
+
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
+
+      //checking to if the state.cart
       if(this.props.cart.length > 0){
         // there is something in this user's cart.
         const totalPrice = this.props.cart[0].totalPrice;
         const totalItems = this.props.cart[0].totalItems;
-        var cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
+        cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
       }else{
-        var cartText = "Your cart is empty"
+        cartText = "Your cart is empty"
       }
 
-
-      var rightMenuBar = [
+      // menu bar depends on user logged in or not
+      rightMenuBar = [
         <div key={1} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
+          {/*this came back from reducer to get the name and cartInfo*/}
           Welcome {this.props.auth.name} | {cartText} <a href={"/"}>Logout</a>
         </div>
       ]
     }else{
-      var rightMenuBar = [
+
+      // default menu bar on load that will link to login and register
+      rightMenuBar = [
         <div key={2} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
           <Link to={"/login"}>Sign in</Link> or <Link to={"/register"}>Create an account </Link>| (0) items in cart | ($0.00)
         </div>
@@ -53,23 +61,42 @@ class Navbar extends Component{
           <div className="nav-wrapper">
             <div className={"container"}>
               <div className={"row"}>
-                <a href="#" data-activates={"mobile-demo"} className={"button-collapse"}><i className={"material-icons"}>menu</i></a>
+
+                {/*top left navbar*/}
                 <div className={"col s7"}>
-                  {/*<ul className="hide-on-med-and-down">*/}
-                    <div className={"row hide-on-med-and-down"}>
-                      <span className={"col s2"}><Link to={"/"}>Home</Link></span>
-                      <span className={"col s2"}>
-												<span className={'col s6 left-aligh shop'}>Shop</span>
-												<i className={"material-icons tiny col s6 dropdown-button"} data-activates='dropdown1'>arrow_drop_down</i>
-												<ul id='dropdown1' className='dropdown-content'>
-													{shopMenu}
-												</ul>
-											</span>
-                      <span className={"col s2"}><Link to={"/about"}>About Us</Link></span>
-                      <span className={"col s3"}><Link to={"/contact"}>Contact Us</Link></span>
-                    </div>
-                  {/*</ul>*/}
+                  <div className={"row hide-on-med-and-down"}>
+                    <span className={"col s2"}>
+                      {/*links to "/"*/}
+                      <Link to={"/"}>Home</Link>
+                    </span>
+                    <span className={"col s2"}>
+
+                      {/*shows a drop down which links to /shop/whatever"*/}
+                      <span className={'col s6 left-aligh shop'}>Shop</span>
+
+                      {/*the arrow which shows the drop down*/}
+                      <i className={"material-icons tiny col s6 dropdown-button"} data-activates='dropdown1'>arrow_drop_down</i>
+
+                      {/*the data we get back from database to show what to show on the drop down*/}
+                      <ul id='dropdown1' className='dropdown-content'>
+                        {shopMenu}
+                      </ul>
+                    </span>
+                    {/*links to the about page route just means to show which component*/}
+                    <span className={"col s2"}>
+                      <Link to={"/about"}>About Us</Link>
+                    </span>
+
+                    {/*links to the contact us route which just means to show which component*/}
+                    <span className={"col s3"}>
+                      <Link to={"/contact"}>Contact Us</Link>
+                    </span>
+                  </div>
                 </div>
+
+                {/*what it shows when it's on mobile size*/}
+                <a href="#" data-activates={"mobile-demo"} className={"button-collapse"}><i className={"material-icons"}>menu</i></a>
+                {/*when it's on mobile size device, it will show this as navbar*/}
                 <ul className="side-nav" id="mobile-demo">
                   <li><Link to={"/login"}>Sign in</Link></li>
                   <li><Link to={"/register"}>Create an Account</Link></li>
@@ -78,8 +105,9 @@ class Navbar extends Component{
                   <li><Link to={"/about"}>About Us</Link></li>
                   <li><Link to={"/contact"}>Contact Us</Link></li>
                 </ul>
+
+                {/*the search form, at this point, it doesn't do anything*/}
                 <div className={"col m3 offset-m2 col s5"}>
-                  {/*<i className={"material-icons"}>search</i>*/}
                   <form>
                     <input id="search" className={"browser-default"} type="text" placeholder={"  Type Here To Search"} />
                   </form>
@@ -89,12 +117,14 @@ class Navbar extends Component{
           </div>
         </nav>
 				<nav>
-				<div className={"nav-wrapper bottom-nav"}>
+				  <div className={"nav-wrapper bottom-nav"}>
 					<div className={"container"}>
 						<div className={"row"}>
 							<div className={"col s12 col m3"}>
 								classic logo goes here
 							</div>
+
+                {/*right menu bar which changes depends on if you sign in or not*/}
 								{rightMenuBar}
 						</div>
 					</div>

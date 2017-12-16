@@ -79,18 +79,20 @@ router.post("/login", (req, res, next)=>{
       throw error;
     }
     if(results.length ===0){
-      // this user does not exist
+      // this user does not exist, send back bad user
       res.json({
         msg: 'badUser'
       })
     }else{
       // this email is valid, see if password is
+      //checking the english password vs the hashed password in db
       const checkHash = bcrypt.compareSync(req.body.password, results[0].password);
       const name = results[0].customerName;
+      // if they are true, update the token and then send back the token, msg and name
       if(checkHash){
         console.log(name);
         const newToken = randToken.uid(100);
-        const updateToken = "update users set token =? where email = ?;";
+        const updateToken = "UPDATE users set token =? WHERE email = ?;";
         connection.query(updateToken, [newToken, req.body.email], (error)=>{
           if(error){
             throw error;
@@ -101,6 +103,7 @@ router.post("/login", (req, res, next)=>{
             name: name
           });
         });
+        // the password is wrong, send back wrong password
       }else{
         res.json({
           msg: "wrongPassword"
@@ -108,11 +111,10 @@ router.post("/login", (req, res, next)=>{
       }
     }
   });
-  // res.json(req.body);
 });
 
 router.get("/productlines/get", (req, res, next)=>{
-	const selectQuery = "select * from productlines;";
+	const selectQuery = "SELECT * FROM productlines;";
 	connection.query(selectQuery, (error, results)=>{
 		if(error){
 			throw error;
@@ -125,7 +127,7 @@ router.get("/productlines/get", (req, res, next)=>{
 
 router.get("/productlines/:productline/get", (req,res,next)=>{
 	const pl = req.params.productline;
-	var plQuery = `select * from productlines inner join products on productlines.productLine = products.productLine where productlines.productLine =?`;
+	var plQuery = `SELECT * FROM productlines INNER JOIN products ON productlines.productLine = products.productLine WHERE productlines.productLine =?`;
 	connection.query(plQuery, [pl],(error, results)=>{
 		if(error){
 			throw error;
@@ -139,7 +141,7 @@ router.get("/productlines/:productline/get", (req,res,next)=>{
 router.post('/updateCart', (req, res, next)=>{
   const productCode = req.body.productCode;
   const userToken = req.body.userToken;
-  const getUidQuery = ' select id from users where token = ?';
+  const getUidQuery = ' SELECT id FROM users WHERE token = ?';
   connection.query(getUidQuery, [userToken], (error, results)=>{
     if(error){
       throw error;
@@ -152,14 +154,14 @@ router.post('/updateCart', (req, res, next)=>{
     }else{
       // this is a good token, i know who this is
       const uid = results[0].id;
-      const addToCartQuery = `insert into cart(uid, producdtCode) values (?,?);`;
+      const addToCartQuery = `INSERT INTO cart(uid, producdtCode) VALUES (?,?);`;
       connection.query(addToCartQuery, [uid, productCode], (error,results)=>{
         if(error){
           throw error;
         }else{
           // the insert worked
           // get the sum of their products and their total
-          const getCartTotals = `select sum(products.buyPrice) as totalPrice , count(products.buyPrice) as totalItems from cart inner join products on products.productCode = cart.producdtCode where cart.uid = ?;`;
+          const getCartTotals = `SELECT SUM(products.buyPrice) as totalPrice, COUNT(products.buyPrice) as totalItems FROM cart INNER JOIN products ON products.productCode = cart.producdtCode WHERE cart.uid = ?;`;
           connection.query(getCartTotals, [uid],(error, results)=>{
             if(error){
               throw error;

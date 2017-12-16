@@ -27,8 +27,10 @@ class Login extends Component{
     this.props.loginAction(loginData);
   }
 
+  // when we receive new state from the reducer
   componentWillReceiveProps(newProps){
     // console.log(newProps.auth.name);
+
     if(newProps.auth.msg ==="wrongPassword"){
       this.setState({
         error: "This password does not match"
