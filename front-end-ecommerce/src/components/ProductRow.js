@@ -6,7 +6,8 @@ function ProductRow(props){
   if(props.token === undefined){
     var button = "";
   }else{
-    var button = <button className={"btn"} onClick={()=>{props.addToCart(props.token, product.productCode)}}>Add To Cart</button>
+    var button =
+      <button className={"btn"} onClick={()=>{props.addToCart(props.token, product.productCode)}}>Add To Cart</button>
   }
   if(product.quantityInStock >100){
     var inStock = "In Stock!";
@@ -28,4 +29,6 @@ function ProductRow(props){
     </tr>
   )
 }
+
+
 export default ProductRow;

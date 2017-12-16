@@ -1,10 +1,17 @@
 import axios from 'axios';
 
 
-export default function(){
-  return (
-    {
-      type: "UPDATE_CART"
+export default function(userToken, productCode){
+  let ajaxPromise = axios({
+    method: "POST",
+    url: `${window.apiHost}/updateCart`,
+    data:{
+      userToken,
+      productCode
     }
-  )
+  });
+  return{
+    type: "UPDATE_CART",
+    payload: ajaxPromise
+  }
 }

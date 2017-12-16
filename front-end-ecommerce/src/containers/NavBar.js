@@ -16,9 +16,19 @@ class Navbar extends Component{
   render(){
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
+      if(this.props.cart.length > 0){
+        // there is something in this user's cart.
+        const totalPrice = this.props.cart[0].totalPrice;
+        const totalItems = this.props.cart[0].totalItems;
+        var cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
+      }else{
+        var cartText = "Your cart is empty"
+      }
+
+
       var rightMenuBar = [
         <div key={1} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
-          Welcome {this.props.auth.name} | (0) items in cart | ($0.00) <a href={"/"}>Logout</a>
+          Welcome {this.props.auth.name} | {cartText} <a href={"/"}>Logout</a>
         </div>
       ]
     }else{
@@ -98,7 +108,8 @@ class Navbar extends Component{
 function mapStateToProps(state){
   return {
     auth: state.auth,
-    productLines: state.pl
+    productLines: state.pl,
+    cart: state.cart
   }
 }
 function mapDispatchToProps(dispatch){
