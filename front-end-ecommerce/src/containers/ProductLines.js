@@ -10,7 +10,7 @@ class ProductLines extends Component{
 		super();
 		this.state ={
 			productList: []
-		}
+		};
 		this.getProducts = this.getProducts.bind(this);
 	}
 	getProducts(props){

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import GetProductLines from '../actions/GetProductLines';
 import {bindActionCreators} from 'redux';
+import UpdateCart from '../actions/UpdateCart';
 
 class Navbar extends Component{
   constructor(){
@@ -12,7 +13,9 @@ class Navbar extends Component{
   // }
   componentDidMount(){
     this.props.getProductLines();
+    
   }
+
   render(){
     let rightMenuBar;
     let cartText;
@@ -145,6 +148,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     getProductLines: GetProductLines,
+    addCart: UpdateCart
   }, dispatch)
 }
 
