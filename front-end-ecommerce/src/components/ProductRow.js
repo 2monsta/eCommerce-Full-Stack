@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ProductRow(props){
-  console.log(props.token);
+  // console.log(props.token);
   const product = props.product;
   if(props.token === undefined){
     var button = "";

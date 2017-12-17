@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import GetProductLines from '../actions/GetProductLines';
 import {bindActionCreators} from 'redux';
 import UpdateCart from '../actions/UpdateCart';
-// import GetInitialCart from '../actions/GetInitialCart';
 
 class Navbar extends Component{
   constructor(){
@@ -37,7 +36,7 @@ class Navbar extends Component{
       rightMenuBar = [
         <div key={1} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
           {/*this came back from reducer to get the name and cartInfo*/}
-          Welcome {this.props.auth.name} | {cartText} <a href={"/"}>Logout</a>
+          Welcome <Link to={"/profile"}>{this.props.auth.name}</Link> | {cartText} <a href={"/"}>Logout</a>
         </div>
       ]
     }else{
@@ -75,7 +74,7 @@ class Navbar extends Component{
                     <span className={"col s2"}>
 
                       {/*shows a drop down which links to /shop/whatever"*/}
-                      <span className={'col s6 left-aligh shop'}>Shop</span>
+                      <span className={'col s6 left-align shop'}>Shop</span>
 
                       {/*the arrow which shows the drop down*/}
                       <i className={"material-icons tiny col s6 dropdown-button"} data-activates='dropdown1'>arrow_drop_down</i>
