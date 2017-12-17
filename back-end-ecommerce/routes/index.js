@@ -72,7 +72,7 @@ router.post("/register", (req, res, next)=>{
 
 
 router.post("/login", (req, res, next)=>{
-  console.log(req.body);
+  // console.log(req.body);
   const checkLoginQuery = 'select * from users inner join customers on users.cid = customers.customerNumber where users.email =?;';
   connection.query(checkLoginQuery, [req.body.email], (error, results)=>{
     if(error){
@@ -90,7 +90,7 @@ router.post("/login", (req, res, next)=>{
       const name = results[0].customerName;
       // if they are true, update the token and then send back the token, msg and name
       if(checkHash){
-        console.log(name);
+        // console.log(name);
         const newToken = randToken.uid(100);
         const updateToken = "UPDATE users set token =? WHERE email = ?;";
         connection.query(updateToken, [newToken, req.body.email], (error)=>{
@@ -169,6 +169,34 @@ router.post('/updateCart', (req, res, next)=>{
               res.json(results);
             }
           })
+        }
+      })
+    }
+  })
+});
+
+
+router.post('/getInitialData', (req, res,next)=>{
+  const userToken = req.body.userToken;
+  const getUidQuery = ' SELECT id FROM users WHERE token = ?';
+  connection.query(getUidQuery, [userToken], (error, results)=>{
+    if(error){
+      throw error;
+
+    }else if(results.length===0){
+      // this thoken is bad
+      res.json({
+        msg:"badToken"
+      })
+    }else{
+      // this is a good token, i know who this is
+      const uid = results[0].id;
+      const getCartTotals = `SELECT SUM(products.buyPrice) as totalPrice, COUNT(products.buyPrice) as totalItems FROM cart INNER JOIN products ON products.productCode = cart.producdtCode WHERE cart.uid = ?;`;
+      connection.query(getCartTotals, [uid],(error, results)=>{
+        if(error){
+          throw error;
+        }else{
+          res.json(results);
         }
       })
     }

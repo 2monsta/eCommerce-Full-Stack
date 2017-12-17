@@ -3,6 +3,7 @@ import {Button, Icon, Input, Row, MenuItem,Col, SearchForm }from 'react-material
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import LoginAction from '../actions/LoginAction'
+import GetInitialCart from '../actions/GetInitialCart';
 
 class Login extends Component{
   constructor(){
@@ -40,6 +41,7 @@ class Login extends Component{
         error: "Not Registered"
       })
     }else if(newProps.auth.msg === "loginSuccess"){
+      this.props.getInitialCart(newProps.auth.token);
       newProps.history.push("/");
     }
   }
@@ -67,7 +69,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loginAction: LoginAction
+    loginAction: LoginAction,
+    getInitialCart: GetInitialCart
   }, dispatch)
 }
 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import GetProductLines from '../actions/GetProductLines';
 import {bindActionCreators} from 'redux';
 import UpdateCart from '../actions/UpdateCart';
+// import GetInitialCart from '../actions/GetInitialCart';
 
 class Navbar extends Component{
   constructor(){
@@ -13,7 +14,7 @@ class Navbar extends Component{
   // }
   componentDidMount(){
     this.props.getProductLines();
-    
+
   }
 
   render(){
@@ -22,7 +23,6 @@ class Navbar extends Component{
 
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
-
       //checking to if the state.cart
       if(this.props.cart.length > 0){
         // there is something in this user's cart.
@@ -148,7 +148,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     getProductLines: GetProductLines,
-    addCart: UpdateCart
+    addCart: UpdateCart,
   }, dispatch)
 }
 
