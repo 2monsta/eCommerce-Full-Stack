@@ -9,6 +9,7 @@ var bcrypt = require("bcrypt-nodejs");
 var randToken = require("rand-token");
 
 // console.log(randToken.uid(100));
+var stripe = require("stripe")(config.stripeKey);
 connection.connect();
 /* GET home page. */
 
@@ -216,7 +217,7 @@ router.post('/updateCart', (req, res, next)=>{
             if(error){
               throw error;
             }else{
-              res.json(results);
+              res.json(results[0]);
             }
           })
         }
@@ -229,6 +230,27 @@ router.post('/updateUserInfo', (req, res,next)=>{
 });
 
 
+
+router.post('/stripe', (req, res, next)=>{
+  // bring in varialbes from ajax request
+  const userToken = req.body.userToken;
+  const stripeToken = req.body.stripeToken;
+  const amount = req.body.amount;
+  // stripe module required above is assocaited with our secretkey, it has charge object which has multiple methods
+  // create takes (striple stuff), callback
+  stripe.charges.create({
+    amount,
+    currency: 'usd',
+    source: stripeToken,
+    description: 'Charges for classicmodels'
+  }, (error, charge)=>{
+    // stripe, when the charge has been run,
+      // runs this callback,a nd send it any errors
+
+  })
+
+
+});
 
 
 module.exports = router;

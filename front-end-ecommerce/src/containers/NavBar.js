@@ -66,7 +66,7 @@ class Navbar extends Component{
 			)
 		});
     return(
-      <div id={"full-nav navbar-fixed"}>
+      <div id={"full-nav"}>
         <nav>
           <div className="nav-wrapper">
             <div className={"container"}>
@@ -126,7 +126,7 @@ class Navbar extends Component{
             </div>
           </div>
         </nav>
-				<nav>
+				<nav className={"navbar-fixed"}>
 				  <div className={"nav-wrapper bottom-nav"}>
 					<div className={"container"}>
 						<div className={"row"}>
