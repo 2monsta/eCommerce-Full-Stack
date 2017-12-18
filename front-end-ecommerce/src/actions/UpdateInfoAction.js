@@ -1,15 +1,16 @@
 import axios from 'axios';
 
 
-export default function(token, info){
+export default function(token, info, whatToChange){
   let ajaxPromise = axios({
     method: "POST",
     url: `${window.apiHost}/updateUserInfo`,
     data:{
       token,
-      info
+      info,
+      whatToChange
     }
-  })
+  });
   return {
     type: "UPDATED",
     payload: ajaxPromise

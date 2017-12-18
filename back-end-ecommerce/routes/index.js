@@ -203,6 +203,11 @@ router.post('/getInitialData', (req, res,next)=>{
   })
 });
 
+
+router.post('/updateUserInfo', (req, res,next)=>{
+  console.log(req.body);
+});
+
 module.exports = router;
 
 
