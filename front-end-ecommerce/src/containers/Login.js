@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Icon, Input, Row, MenuItem,Col, SearchForm }from 'react-materialize';
+import {Button, Input }from 'react-materialize';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import LoginAction from '../actions/LoginAction'

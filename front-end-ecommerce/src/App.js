@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 //CUSTOM COMPOENT
@@ -10,7 +9,8 @@ import Home from './components/Home';
 import Login from './containers/Login';
 import ProductLines from './containers/ProductLines';
 import UserProfile from './containers/UserProfile';
-
+import Logout from './containers/Logout';
+import Cart from './containers/Cart';
 
 class App extends Component {
   render() {
@@ -29,6 +29,8 @@ class App extends Component {
             <Route exact path={"/login"} component={Login}/>
 						<Route exact path="/shop/:productline" component={ProductLines} />
             <Route exact path={"/profile"} component={UserProfile}/>
+            <Route exact path={"/logout"} component={Logout}/>
+            <Route exact path={"/cart"} component={Cart}/>
           </div>
         </div>
       </Router>

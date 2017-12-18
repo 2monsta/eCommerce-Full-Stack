@@ -6,6 +6,8 @@ export default function(state = [], action){
       // i'm going to update'
       // console.log(action.payload)
       return action.payload.data;
+    case "LOGOUT":
+      return [];
     default:
       return state;
   }

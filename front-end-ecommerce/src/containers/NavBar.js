@@ -4,16 +4,22 @@ import {connect} from 'react-redux';
 import GetProductLines from '../actions/GetProductLines';
 import {bindActionCreators} from 'redux';
 import UpdateCart from '../actions/UpdateCart';
+import LoginAction from "../actions/LoginAction";
 
 class Navbar extends Component{
   constructor(){
     super();
+    this.fakeLogin=this.fakeLogin.bind(this);
   }
   // componentWillReceiveProps(newProps){
   // }
   componentDidMount(){
     this.props.getProductLines();
 
+  }
+
+  fakeLogin(){
+    this.props.loginAction("fake");
   }
 
   render(){
@@ -23,27 +29,29 @@ class Navbar extends Component{
     if(this.props.auth.name !== undefined){
       // this mean the user is logged in
       //checking to if the state.cart
-      if(this.props.cart.length > 0){
+      if(this.props.cart.totalPrice  !==undefined){
         // there is something in this user's cart.
-        const totalPrice = this.props.cart[0].totalPrice;
-        const totalItems = this.props.cart[0].totalItems;
-        cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
+        const totalPrice = this.props.cart.totalPrice;
+        const totalItems = this.props.cart.totalItems;
+        cartText = `(${totalItems}) items in your cart ($${totalPrice})`
       }else{
         cartText = "Your cart is empty"
       }
-
       // menu bar depends on user logged in or not
       rightMenuBar = [
-        <div key={1} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
+        <div key={1} className={"offset-m2 col m7 col s12 right-align hide-on-med-and-down"}>
           {/*this came back from reducer to get the name and cartInfo*/}
-          Welcome <Link to={"/profile"}>{this.props.auth.name}</Link> | {cartText} <a href={"/"}>Logout</a>
+          Welcome <Link to={"/profile"}>{this.props.auth.name}</Link> | <Link to={"/cart"}>{cartText}</Link> | <Link to={"/logout"}> Logout</Link>
         </div>
       ]
     }else{
 
       // default menu bar on load that will link to login and register
       rightMenuBar = [
-        <div key={2} className={"offset-m3 col m6 col s12 right-align hide-on-med-and-down"}>
+        <div key={2} className={"offset-m2 col m7 col s12 right-align hide-on-med-and-down"}>
+          {/*================================================TO BE REMOVED*/}
+          <button className={"btn"} onClick={this.fakeLogin}>FAKE LOGIN</button>
+          {/*========================================================*/}
           <Link to={"/login"}>Sign in</Link> or <Link to={"/register"}>Create an account </Link>| (0) items in cart | ($0.00)
         </div>
       ]
@@ -97,7 +105,7 @@ class Navbar extends Component{
                 </div>
 
                 {/*what it shows when it's on mobile size*/}
-                <a href="#" data-activates={"mobile-demo"} className={"button-collapse"}><i className={"material-icons"}>menu</i></a>
+                <Link to="#" data-activates={"mobile-demo"} className={"button-collapse"}><i className={"material-icons"}>menu</i></Link>
                 {/*when it's on mobile size device, it will show this as navbar*/}
                 <ul className="side-nav" id="mobile-demo">
                   <li><Link to={"/login"}>Sign in</Link></li>
@@ -148,6 +156,7 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
     getProductLines: GetProductLines,
     addCart: UpdateCart,
+    loginAction:LoginAction
   }, dispatch)
 }
 

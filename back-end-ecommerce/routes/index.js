@@ -11,6 +11,23 @@ var randToken = require("rand-token");
 // console.log(randToken.uid(100));
 connection.connect();
 /* GET home page. */
+
+
+
+router.post('/fakelogin', (req, res, next)=>{
+  const getFirstUser = `SELECT * from users limit 1;`;
+  connection.query(getFirstUser, (error, results)=>{
+    if(error){
+      throw error;
+    }
+    res.json({
+      msg: "loginSuccess",
+      token: results[0].token,
+      name: results[0].email
+    });
+  })
+});
+
 router.post("/register", (req, res, next)=>{
   const userData = req.body;
   // console.log(req.body.email);
@@ -67,9 +84,6 @@ router.post("/register", (req, res, next)=>{
     res.json(error);
   })
 });
-
-
-
 
 router.post("/login", (req, res, next)=>{
   // console.log(req.body);
@@ -136,6 +150,42 @@ router.get("/productlines/:productline/get", (req,res,next)=>{
 		}
 	})
 });
+router.post('/getInitialData', (req, res,next)=>{
+  const userToken = req.body.userToken;
+  const getUidQuery = ' SELECT id FROM users WHERE token = ?';
+  connection.query(getUidQuery, [userToken], (error, results)=>{
+    if(error){
+      throw error;
+
+    }else if(results.length===0){
+      // this thoken is bad
+      res.json({
+        msg:"badToken"
+      })
+    }else{
+      // this is a good token, i know who this is
+      const uid = results[0].id;
+      const getCartTotals = `SELECT SUM(products.buyPrice) as totalPrice, COUNT(products.buyPrice) as totalItems FROM cart INNER JOIN products ON products.productCode = cart.producdtCode WHERE cart.uid = ?;`;
+      connection.query(getCartTotals, [uid],(error, results)=>{
+        if(error){
+          throw error;
+        }else{
+          // res.json(results);
+          const getCartProducts = `select * from cart inner join products on products.productCode = cart.producdtCode where uid =?;`;
+          connection.query(getCartProducts, [uid], (error, cartContents)=>{
+            if (error){
+              throw error;
+            }else{
+              var finalCart = results[0];
+              finalCart.product=cartContents;
+              res.json(finalCart);
+            }
+          })
+        }
+      })
+    }
+  })
+});
 
 
 router.post('/updateCart', (req, res, next)=>{
@@ -174,39 +224,12 @@ router.post('/updateCart', (req, res, next)=>{
     }
   })
 });
-
-
-router.post('/getInitialData', (req, res,next)=>{
-  const userToken = req.body.userToken;
-  const getUidQuery = ' SELECT id FROM users WHERE token = ?';
-  connection.query(getUidQuery, [userToken], (error, results)=>{
-    if(error){
-      throw error;
-
-    }else if(results.length===0){
-      // this thoken is bad
-      res.json({
-        msg:"badToken"
-      })
-    }else{
-      // this is a good token, i know who this is
-      const uid = results[0].id;
-      const getCartTotals = `SELECT SUM(products.buyPrice) as totalPrice, COUNT(products.buyPrice) as totalItems FROM cart INNER JOIN products ON products.productCode = cart.producdtCode WHERE cart.uid = ?;`;
-      connection.query(getCartTotals, [uid],(error, results)=>{
-        if(error){
-          throw error;
-        }else{
-          res.json(results);
-        }
-      })
-    }
-  })
-});
-
-
 router.post('/updateUserInfo', (req, res,next)=>{
   console.log(req.body);
 });
+
+
+
 
 module.exports = router;
 

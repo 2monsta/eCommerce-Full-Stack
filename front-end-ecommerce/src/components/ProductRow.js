@@ -3,18 +3,20 @@ import React from 'react';
 function ProductRow(props){
   // console.log(props.token);
   const product = props.product;
+  let button;
+  let inStock;
   if(props.token === undefined){
-    var button = "";
+    button = "";
   }else{
-    var button =
+    button =
       <button className={"btn"} onClick={()=>{props.addToCart(props.token, product.productCode)}}>Add To Cart</button>
   }
   if(product.quantityInStock >100){
-    var inStock = "In Stock!";
+    inStock = "In Stock!";
   }else if(product.quantityInStock > 0){
-    var inStock = "Order Soon!"
+    inStock = "Order Soon!"
   }else{
-    var inStock = "Out of Stock!"
+    inStock = "Out of Stock!"
   }
   return(
     <tr>

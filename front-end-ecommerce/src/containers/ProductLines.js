@@ -37,6 +37,7 @@ class ProductLines extends Component{
 
 	render(){
 		// console.log(this.props);
+    let desc;
 		const products = this.state.productList.map((product, index)=>{
 		  console.log(product);
 			return (
@@ -48,9 +49,9 @@ class ProductLines extends Component{
 		})
 		// console.log(thisPL);
 		if(thisPL.length === 0){
-			var desc = "";
+			desc = "";
 		}else{
-			var desc = thisPL[0].textDescription;
+		  desc = thisPL[0].textDescription;
 		}
 		return(
 			<div className={"row"}>
