@@ -13,7 +13,7 @@ class Cart extends Component{
   }
 
   makePayment() {
-    // only have this varialbe bcause of the cdn
+    // only have this variable bcause of the cdn
     var handler = window.StripeCheckout.configure({
       key: 'pk_test_hIqrUdykMdFLGNvORsC2O1V8',
       locale: 'auto',
@@ -27,10 +27,12 @@ class Cart extends Component{
           method: 'POST',
           url: `${window.apiHost}/stripe`,
           data: theData
-        }).done((data) => {
-          console.log(data);
-          if (data.msg === 'paymentSuccess') {
-
+        }).then((response) => {
+          console.log(response);
+          if (response.data.msg === 'paymentSuccess') {
+            this.props.history.push("/thankyou");
+          }else{
+            console.log(response.data.msg);
           }
         });
       }
